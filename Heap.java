@@ -34,6 +34,51 @@ public class Heap
         }
         return heap;
     }
+    public static ArrayList<Integer> popup(ArrayList<Integer> heap)
+    {
+       if(heap.size()==1)
+       {
+           heap.remove(0);
+       }
+       else
+       {
+           int l=heap.size()-1;
+           heap=swap(heap,0,l);
+           heap.remove(l);
+           int k=0;
+           while(k<l)
+           {
+               int a=2*k+1;
+               int b=2*k+2;
+               if(a<l)
+               {
+                   int max=heap.get(a)>heap.get(b)? a:b;
+                   heap=swap(heap,k,max);
+                   k=max;
+               }
+               else{
+                   break;
+               }
+           }
+           
+       }
+       return heap;
+     
+    }  
+   
+    
+    public static ArrayList<Integer> swap(ArrayList<Integer>heap,int a,int b ){
+        int t,x,y;
+        x=heap.get(a);
+        y=heap.get(b);
+        heap.set(a,y);
+        heap.set(b,x);
+       
+        
+        return heap;
+    }
+    
+    
     public static void main(String args [])
     {
         ArrayList<Integer> heap=new  ArrayList<Integer>();
@@ -41,6 +86,15 @@ public class Heap
         heap =h.insert(heap,3);
         heap =h.insert(heap,5);
         heap =h.insert(heap,31);
-        System.out.println(heap);
+        heap =h.insert(heap,7);
+        heap =h.insert(heap,14);
+        heap =h.insert(heap,44);
+        heap =h.insert(heap,84);
+        heap =h.insert(heap,54);
+        System.out.println("heap is "+heap);
+        heap=h.popup(heap);
+        System.out.println("heap after pop is "+heap);
+        
+       
     }
 }
