@@ -1,57 +1,46 @@
 import java.util.*;
 public class Heap
 {
-    public static ArrayList<Integer> insert(ArrayList<Integer> lst,int data)
+    public static ArrayList<Integer> insert(ArrayList<Integer> heap, int data)
     {
-        if(lst.size()<1)lst.add(data);      //Just insert the firstvalue
-        
+        if(heap.size()==0)heap.add(data);   //Just insert the firstvalue
         else{
-            lst.add(data);
-            lst=swap(lst,data);         //call to manage the heaap
-            }
-        return lst;
+            heap.add(data);         //insert the next value
+            heap=heapify(heap);     //now call the heapify function to fix the order
+        }
+        return heap;
     }
-    
-    public static ArrayList<Integer> swap(ArrayList<Integer> lst,int data)
+    public static ArrayList<Integer> heapify(ArrayList<Integer> heap)
     {
-        int t,k,p,chi,par;
-        k=lst.size()-1;             //index of newly added node
-        
-        
+        int k=heap.size()-1;    //Get the index of child 
         while(k>0)
         {
-            p=(k-1)/2;      //index of parrent addresh
-            par=lst.get(p);     //get the parrent 
-            chi=lst.get(k);     ////get the child
-            if(chi>par)         //for maxHeap we use > and for minHeap we can use <
+            int child=heap.get(k);      //get the  child
+            int p=(k-1)/2;              //index of parrent addresh
+           int parrent=heap.get(p);     //get the parrent
+            if(child>parrent)
             {
-               //to swap if the new node is bigger then its parrent node
-               t=par;
-               par=chi;
-               chi=t;
-               lst.set(p,par);      //swaping at parrent
-               lst.set(k,chi);      //swaping at child
-               k=p;         //increment k to check the next parrent
-              
+                //swapingg
+                int t=child;
+                child=parrent;
+                parrent=t;
+                heap.set(k,child);      //now insert the swapped value to child
+                heap.set(p,parrent);    //now insert the swapped value to parrent
+                k=p;        //decrement child to the parrent
             }
             else{
-                
-                break;
+                break;      //if its already to a correct position do nothing
             }
         }
-    return lst;
+        return heap;
     }
-    
-    public static void main(String args[])
+    public static void main(String args [])
     {
-        ArrayList<Integer> lst=new ArrayList<Integer>();
-        
-        lst=insert(lst,5);
-        lst=insert(lst,15);
-         lst=insert(lst,2);
-        lst=insert(lst,25);
-        System.out.println(lst);
-        
+        ArrayList<Integer> heap=new  ArrayList<Integer>();
+        Heap h=new Heap();
+        heap =h.insert(heap,3);
+        heap =h.insert(heap,5);
+        heap =h.insert(heap,31);
+        System.out.println(heap);
     }
-    
 }
